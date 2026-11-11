@@ -16,10 +16,12 @@ E_j=e_0+\sum_{k=0}^{j}q_k,\qquad j=0,\ldots,N-2.
 The Hamiltonian below is the matter-only representation after exact Gauss-law elimination for this open chain and fixed incoming flux. A native hopping term also shifts its electric link. In this physical basis, that shift is determined by the change in matter occupations, so the displayed hopping term has no independent link operator.
 
 ```math
-H=w\sum_{j=0}^{N-2}
-  \left(\sigma_j^+\sigma_{j+1}^-+\sigma_j^-\sigma_{j+1}^+\right)
-  +m\sum_{j=0}^{N-1}(-1)^j b_j
+\begin{split}
+H={}&w\sum_{j=0}^{N-2}
+  \bigl(\sigma_j^+\,\sigma_{j+1}^-+\sigma_j^-\,\sigma_{j+1}^+\bigr)\\
+  &+m\sum_{j=0}^{N-1}(-1)^j b_j
   +J\sum_{j=0}^{N-2}(E_j+\alpha)^2.
+\end{split}
 ```
 
 The benchmark fixes the following inputs:

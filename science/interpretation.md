@@ -26,7 +26,7 @@ This statement is useful even when a complete fault-tolerant gate count is unava
 
 ## Why the asymptotic comparison matters
 
-The native HHKL/interaction-picture algorithm already has near-linear spacetime gate complexity. This compiler preserves that scaling with $`N+\operatorname{polylog}`$ serial width, or $`O(N)+\operatorname{polylog}`$ width with the stated parallel construction. The nearest stored-field encoding requires $`\Theta(N\log\Lambda)`$ qubits for matter and fields when each link has range $`\Lambda`$.
+The native HHKL/interaction-picture algorithm already has near-linear spacetime gate complexity. This compiler preserves that scaling with $`N+\mathrm{polylog}`$ serial width, or $`O(N)+\mathrm{polylog}`$ width with the stated parallel construction. The nearest stored-field encoding requires $`\Theta(N\log\Lambda)`$ qubits for matter and fields when each link has range $`\Lambda`$.
 
 The strongest published or applicable quantum comparator depends on the parameter regime. A concrete eliminated global interaction-picture construction has near-$`N^2|w|t`$ gates and low width. The spatial compiler removes one extensive factor relative to that construction. Product formulas, state-dependent truncation and other encodings may improve particular regimes; no universal low-width lower bound is asserted.
 
