@@ -1,0 +1,320 @@
+{
+  "scope": "Reconstruction and conserved-cache bookkeeping for a specified disjoint block layer, with exact register allocation and explicit reversible arithmetic",
+  "not_a_full_quantum_resource_estimate": [
+    "Local native block simulation gates and ancillas are not derived here; a workspace allowance is an input",
+    "No HHKL block length or repetition count is certified to a target simulation error by this census",
+    "No logical synthesis, T count, code distance, routing, physical qubits, magic-state supply, or wall-clock estimate",
+    "Input preparation, scalar readout, and amplitude-estimation repetitions are excluded unless explicitly added externally"
+  ],
+  "arithmetic_implementation": {
+    "controlled_increment": "Compute B-1 carries ascending; descending, flip each target bit then erase its carry BEFORE the lower target bit changes; finally flip target bit zero",
+    "controlled_increment_counts": "B CNOT plus 2(B-1) Toffoli and B-1 clean carries; inverse has the same count",
+    "register_add": "For each source bit i, controlled increment target suffix i..B-1; B(B+1)/2 CNOT plus B(B-1) Toffoli; carries are reused",
+    "charge_update": "Even site: increment conditioned on b=1. Odd site: decrement conditioned on b=0, using two X gates to negate the control",
+    "copy": "B parallel CNOT gates into a clean B-bit register",
+    "optimality": "Explicit exact increment; the generic register adder is simple and is not claimed to be optimal"
+  },
+  "cache_layout": "K complete block totals plus K-1 internal sum nodes; 2K-1 boundary-prefix tree nodes. All retained quantities depend only on conserved complete block totals. No within-block partial sum is retained.",
+  "parallel_connectivity_assumption": "Disjoint arithmetic and native blocks may run simultaneously with logical connectivity sufficient for the stated prefix tree; routing is uncounted",
+  "width_choice": "B is the smallest signed width with positive range at least ceil(N/2)+|e0|, conservatively covering all staggered basis states and tree totals",
+  "default_block_choice": "min(N,8B), chosen to illustrate an O(N) cache, not derived as an HHKL accuracy bound",
+  "primitive_validation": [
+    {
+      "primitive": "controlled modular increment",
+      "bits": 1,
+      "inputs_checked": 4,
+      "counts": {
+        "cx": 1
+      },
+      "clean_scratch_bits": 0
+    },
+    {
+      "primitive": "controlled modular increment",
+      "bits": 2,
+      "inputs_checked": 8,
+      "counts": {
+        "ccx": 2,
+        "cx": 2
+      },
+      "clean_scratch_bits": 1
+    },
+    {
+      "primitive": "controlled modular increment",
+      "bits": 3,
+      "inputs_checked": 16,
+      "counts": {
+        "ccx": 4,
+        "cx": 3
+      },
+      "clean_scratch_bits": 2
+    },
+    {
+      "primitive": "controlled modular increment",
+      "bits": 4,
+      "inputs_checked": 32,
+      "counts": {
+        "ccx": 6,
+        "cx": 4
+      },
+      "clean_scratch_bits": 3
+    },
+    {
+      "primitive": "controlled modular increment",
+      "bits": 5,
+      "inputs_checked": 64,
+      "counts": {
+        "ccx": 8,
+        "cx": 5
+      },
+      "clean_scratch_bits": 4
+    },
+    {
+      "primitive": "controlled modular increment",
+      "bits": 6,
+      "inputs_checked": 128,
+      "counts": {
+        "ccx": 10,
+        "cx": 6
+      },
+      "clean_scratch_bits": 5
+    },
+    {
+      "primitive": "in-place modular register addition",
+      "bits": 1,
+      "inputs_checked": 4,
+      "counts": {
+        "cx": 1
+      },
+      "clean_scratch_bits": 0
+    },
+    {
+      "primitive": "in-place modular register addition",
+      "bits": 2,
+      "inputs_checked": 16,
+      "counts": {
+        "ccx": 2,
+        "cx": 3
+      },
+      "clean_scratch_bits": 1
+    },
+    {
+      "primitive": "in-place modular register addition",
+      "bits": 3,
+      "inputs_checked": 64,
+      "counts": {
+        "ccx": 6,
+        "cx": 6
+      },
+      "clean_scratch_bits": 2
+    },
+    {
+      "primitive": "in-place modular register addition",
+      "bits": 4,
+      "inputs_checked": 256,
+      "counts": {
+        "ccx": 12,
+        "cx": 10
+      },
+      "clean_scratch_bits": 3
+    },
+    {
+      "primitive": "in-place modular register addition",
+      "bits": 5,
+      "inputs_checked": 1024,
+      "counts": {
+        "ccx": 20,
+        "cx": 15
+      },
+      "clean_scratch_bits": 4
+    }
+  ],
+  "cases": [
+    {
+      "parameters": {
+        "sites": 1024,
+        "nominal_block_sites": 88,
+        "left_flux": 0,
+        "bits_per_flux_or_total": 11,
+        "native_simulator_workspace_bits_per_active_block": 1024,
+        "parallel_total_width_budget_bits": 3072,
+        "complete_layer_repetitions_counted": 1
+      },
+      "block_count": 12,
+      "largest_block_sites": 88,
+      "largest_temporary_link_count": 88,
+      "persistent_native_system_bits": 12277,
+      "persistent_native_plus_one_workspace_bits": 13301,
+      "streaming": {
+        "register_bits": {
+          "matter": 1024,
+          "incoming_flux": 11,
+          "temporary_links": 968,
+          "shared_carry_or_native_work": 1024
+        },
+        "total_bits": 3027,
+        "charge_controlled_unit_updates_per_layer": 3982,
+        "copied_bits_per_layer": 22506,
+        "register_additions_per_layer": 0,
+        "elementary_gates_per_layer": {
+          "toffoli": 79640,
+          "cnot": 66308,
+          "x": 3980
+        },
+        "elementary_gates_all_repetitions": {
+          "toffoli": 79640,
+          "cnot": 66308,
+          "x": 3980
+        }
+      },
+      "conserved_cache": {
+        "fits_declared_width_budget": false,
+        "active_blocks": null,
+        "batches": null,
+        "minimum_one_block_total_bits": 3522,
+        "matter_bits": 1024,
+        "retained_conserved_cache_bits": 506,
+        "minimum_shared_workspace_bits": 1992,
+        "charge_controlled_unit_updates_per_layer": 4094,
+        "copied_bits_per_layer": 23232,
+        "register_additions_per_layer": 44,
+        "tree_height": 4,
+        "elementary_gates_per_layer": {
+          "toffoli": 86720,
+          "cnot": 71170,
+          "x": 4092
+        },
+        "elementary_gates_all_repetitions": {
+          "toffoli": 86720,
+          "cnot": 71170,
+          "x": 4092
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sites": 4096,
+        "nominal_block_sites": 104,
+        "left_flux": 0,
+        "bits_per_flux_or_total": 13,
+        "native_simulator_workspace_bits_per_active_block": 1024,
+        "parallel_total_width_budget_bits": 12288,
+        "complete_layer_repetitions_counted": 1
+      },
+      "block_count": 40,
+      "largest_block_sites": 104,
+      "largest_temporary_link_count": 104,
+      "persistent_native_system_bits": 57331,
+      "persistent_native_plus_one_workspace_bits": 58355,
+      "streaming": {
+        "register_bits": {
+          "matter": 4096,
+          "incoming_flux": 13,
+          "temporary_links": 1352,
+          "shared_carry_or_native_work": 1024
+        },
+        "total_bits": 6485,
+        "charge_controlled_unit_updates_per_layer": 16302,
+        "copied_bits_per_layer": 106470,
+        "register_additions_per_layer": 0,
+        "elementary_gates_per_layer": {
+          "toffoli": 391248,
+          "cnot": 318396,
+          "x": 16300
+        },
+        "elementary_gates_all_repetitions": {
+          "toffoli": 391248,
+          "cnot": 318396,
+          "x": 16300
+        }
+      },
+      "conserved_cache": {
+        "fits_declared_width_budget": true,
+        "active_blocks": 2,
+        "batches": 20,
+        "matter_bits": 4096,
+        "retained_conserved_cache_bits": 2054,
+        "shared_peak_workspace_bits": 4752,
+        "peak_total_bits": 10902,
+        "cache_build_carry_bits": 480,
+        "local_batch_workspace_bits": 4752,
+        "charge_controlled_unit_updates_per_layer": 16382,
+        "copied_bits_per_layer": 109512,
+        "register_additions_per_layer": 156,
+        "tree_height": 6,
+        "elementary_gates_per_layer": {
+          "toffoli": 417504,
+          "cnot": 336674,
+          "x": 16380
+        },
+        "elementary_gates_all_repetitions": {
+          "toffoli": 417504,
+          "cnot": 336674,
+          "x": 16380
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sites": 65536,
+        "nominal_block_sites": 136,
+        "left_flux": 0,
+        "bits_per_flux_or_total": 17,
+        "native_simulator_workspace_bits_per_active_block": 1024,
+        "parallel_total_width_budget_bits": 196608,
+        "complete_layer_repetitions_counted": 1
+      },
+      "block_count": 482,
+      "largest_block_sites": 136,
+      "largest_temporary_link_count": 136,
+      "persistent_native_system_bits": 1179631,
+      "persistent_native_plus_one_workspace_bits": 1180655,
+      "streaming": {
+        "register_bits": {
+          "matter": 65536,
+          "incoming_flux": 17,
+          "temporary_links": 2312,
+          "shared_carry_or_native_work": 1024
+        },
+        "total_bits": 68889,
+        "charge_controlled_unit_updates_per_layer": 261902,
+        "copied_bits_per_layer": 2228190,
+        "register_additions_per_layer": 0,
+        "elementary_gates_per_layer": {
+          "toffoli": 8380864,
+          "cnot": 6680524,
+          "x": 261900
+        },
+        "elementary_gates_all_repetitions": {
+          "toffoli": 8380864,
+          "cnot": 6680524,
+          "x": 261900
+        }
+      },
+      "conserved_cache": {
+        "fits_declared_width_budget": true,
+        "active_blocks": 29,
+        "batches": 17,
+        "matter_bits": 65536,
+        "retained_conserved_cache_bits": 32742,
+        "shared_peak_workspace_bits": 96744,
+        "peak_total_bits": 195022,
+        "cache_build_carry_bits": 7712,
+        "local_batch_workspace_bits": 96744,
+        "charge_controlled_unit_updates_per_layer": 262142,
+        "copied_bits_per_layer": 2277252,
+        "register_additions_per_layer": 1924,
+        "tree_height": 9,
+        "elementary_gates_per_layer": {
+          "toffoli": 8911872,
+          "cnot": 7028038,
+          "x": 262140
+        },
+        "elementary_gates_all_repetitions": {
+          "toffoli": 8911872,
+          "cnot": 7028038,
+          "x": 262140
+        }
+      }
+    }
+  ]
+}

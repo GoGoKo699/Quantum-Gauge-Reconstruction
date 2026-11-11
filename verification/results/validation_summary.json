@@ -1,0 +1,372 @@
+{
+  "status": "Completed finite-task and reconstruction-overhead validation",
+  "quantum_advantage_claim_supported_by_these_experiments": false,
+  "full_fault_tolerant_resource_estimate_provided": false,
+  "adverse_or_limiting_findings": [
+    "The specified t=2 quench is classically tractable with a converged charge-resolved MPS.",
+    "Scalar density can be accurate when the full state remains substantially less accurate; compare the same output task.",
+    "The conserved-cache layout does not fit the declared 3N-bit budget for all finite sizes or native-workspace allowances.",
+    "The illustrative block length is not certified by an HHKL error bound, and local native simulation costs remain separate."
+  ],
+  "classical_task": {
+    "parameters": {
+      "sites": 8,
+      "hopping": 1.0,
+      "mass": 0.2,
+      "electric": 0.5,
+      "background": 0.5,
+      "left_flux": 0
+    },
+    "time": 2.0,
+    "observable": "R = (1/N) sum_j 1{b_j != j mod 2}, in [0,1]",
+    "quench": "At time zero change only the hopping from w=0 to w=1; hold mass, electric coupling, and background fixed",
+    "input_preparation": "N/2 X gates for the Neel product from zero matter bits",
+    "finite_sizes": [
+      8,
+      12,
+      16,
+      20
+    ]
+  },
+  "mps_implementation_validation": {
+    "independent_split_product_cases": 6,
+    "max_split_product_state_error": 6.572843834187347e-15,
+    "max_sparse_vs_dense_eigendecomposition_error": 4.376458913485445e-15,
+    "max_full_vs_two_half_time_reference_error": 4.231669013366857e-15
+  },
+  "selected_matched_accuracy_cases": [
+    {
+      "sites": 8,
+      "reference_density": 0.2945147790120955,
+      "neutral_sector_dimension": 70,
+      "mps_steps": 128,
+      "mps_maximum_bond": 16,
+      "mps_density": 0.294524878075964,
+      "density_absolute_error": 1.009906386850723e-05,
+      "target_additive_error": 0.001,
+      "target_met": true,
+      "truncation_only_observable_bound": 0.0,
+      "state_l2_error": 0.00011440105572157654
+    },
+    {
+      "sites": 12,
+      "reference_density": 0.3206414629586467,
+      "neutral_sector_dimension": 924,
+      "mps_steps": 128,
+      "mps_maximum_bond": 32,
+      "mps_density": 0.3206499672837329,
+      "density_absolute_error": 8.50432508620047e-06,
+      "target_additive_error": 0.001,
+      "target_met": true,
+      "truncation_only_observable_bound": 6.145260801428941e-05,
+      "state_l2_error": 0.0001613123956377508
+    },
+    {
+      "sites": 16,
+      "reference_density": 0.33363132860593603,
+      "neutral_sector_dimension": 12870,
+      "mps_steps": 128,
+      "mps_maximum_bond": 64,
+      "mps_density": 0.33363908410424215,
+      "density_absolute_error": 7.75549830611677e-06,
+      "target_additive_error": 0.001,
+      "target_met": true,
+      "truncation_only_observable_bound": 1.170500933258879e-06,
+      "state_l2_error": 0.00018544804798060097
+    },
+    {
+      "sites": 20,
+      "reference_density": 0.34142527727168936,
+      "neutral_sector_dimension": 184756,
+      "mps_steps": 128,
+      "mps_maximum_bond": 64,
+      "mps_density": 0.3414325830600237,
+      "density_absolute_error": 7.3057883343552454e-06,
+      "target_additive_error": 0.001,
+      "target_met": true,
+      "truncation_only_observable_bound": 2.6208843667045845e-06,
+      "state_l2_error": 0.00021582075237046568
+    }
+  ],
+  "n16_time_step_convergence": {
+    "steps": [
+      16,
+      32,
+      64,
+      128
+    ],
+    "density_absolute_errors": [
+      0.0004957454897479008,
+      0.00012405200449266962,
+      3.102019593825833e-05,
+      7.75549830611677e-06
+    ],
+    "successive_error_ratios": [
+      3.9962714973879763,
+      3.9990722411805204,
+      3.9997682565145642
+    ]
+  },
+  "resource_primitive_validation": {
+    "primitive_configurations": 11,
+    "forward_and_reverse_input_cases": 1616,
+    "common_increment_counts": "2(B-1) Toffoli, B CNOT, B-1 clean carries"
+  },
+  "resource_example_n4096": {
+    "parameters": {
+      "sites": 4096,
+      "nominal_block_sites": 104,
+      "left_flux": 0,
+      "bits_per_flux_or_total": 13,
+      "native_simulator_workspace_bits_per_active_block": 0,
+      "parallel_total_width_budget_bits": 12288,
+      "complete_layer_repetitions_counted": 1
+    },
+    "block_count": 40,
+    "largest_block_sites": 104,
+    "largest_temporary_link_count": 104,
+    "persistent_native_system_bits": 57331,
+    "persistent_native_plus_one_workspace_bits": 57331,
+    "streaming": {
+      "register_bits": {
+        "matter": 4096,
+        "incoming_flux": 13,
+        "temporary_links": 1352,
+        "shared_carry_or_native_work": 12
+      },
+      "total_bits": 5473,
+      "charge_controlled_unit_updates_per_layer": 16302,
+      "copied_bits_per_layer": 106470,
+      "register_additions_per_layer": 0,
+      "elementary_gates_per_layer": {
+        "toffoli": 391248,
+        "cnot": 318396,
+        "x": 16300
+      },
+      "elementary_gates_all_repetitions": {
+        "toffoli": 391248,
+        "cnot": 318396,
+        "x": 16300
+      }
+    },
+    "conserved_cache": {
+      "fits_declared_width_budget": true,
+      "active_blocks": 4,
+      "batches": 10,
+      "matter_bits": 4096,
+      "retained_conserved_cache_bits": 2054,
+      "shared_peak_workspace_bits": 5456,
+      "peak_total_bits": 11606,
+      "cache_build_carry_bits": 480,
+      "local_batch_workspace_bits": 5456,
+      "charge_controlled_unit_updates_per_layer": 16382,
+      "copied_bits_per_layer": 109512,
+      "register_additions_per_layer": 156,
+      "tree_height": 6,
+      "elementary_gates_per_layer": {
+        "toffoli": 417504,
+        "cnot": 336674,
+        "x": 16380
+      },
+      "elementary_gates_all_repetitions": {
+        "toffoli": 417504,
+        "cnot": 336674,
+        "x": 16380
+      }
+    }
+  },
+  "workspace_sensitivity": [
+    {
+      "parameters": {
+        "sites": 1024,
+        "nominal_block_sites": 88,
+        "left_flux": 0,
+        "bits_per_flux_or_total": 11,
+        "native_simulator_workspace_bits_per_active_block": 1024,
+        "parallel_total_width_budget_bits": 3072,
+        "complete_layer_repetitions_counted": 1
+      },
+      "block_count": 12,
+      "largest_block_sites": 88,
+      "largest_temporary_link_count": 88,
+      "persistent_native_system_bits": 12277,
+      "persistent_native_plus_one_workspace_bits": 13301,
+      "streaming": {
+        "register_bits": {
+          "matter": 1024,
+          "incoming_flux": 11,
+          "temporary_links": 968,
+          "shared_carry_or_native_work": 1024
+        },
+        "total_bits": 3027,
+        "charge_controlled_unit_updates_per_layer": 3982,
+        "copied_bits_per_layer": 22506,
+        "register_additions_per_layer": 0,
+        "elementary_gates_per_layer": {
+          "toffoli": 79640,
+          "cnot": 66308,
+          "x": 3980
+        },
+        "elementary_gates_all_repetitions": {
+          "toffoli": 79640,
+          "cnot": 66308,
+          "x": 3980
+        }
+      },
+      "conserved_cache": {
+        "fits_declared_width_budget": false,
+        "active_blocks": null,
+        "batches": null,
+        "minimum_one_block_total_bits": 3522,
+        "matter_bits": 1024,
+        "retained_conserved_cache_bits": 506,
+        "minimum_shared_workspace_bits": 1992,
+        "charge_controlled_unit_updates_per_layer": 4094,
+        "copied_bits_per_layer": 23232,
+        "register_additions_per_layer": 44,
+        "tree_height": 4,
+        "elementary_gates_per_layer": {
+          "toffoli": 86720,
+          "cnot": 71170,
+          "x": 4092
+        },
+        "elementary_gates_all_repetitions": {
+          "toffoli": 86720,
+          "cnot": 71170,
+          "x": 4092
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sites": 4096,
+        "nominal_block_sites": 104,
+        "left_flux": 0,
+        "bits_per_flux_or_total": 13,
+        "native_simulator_workspace_bits_per_active_block": 1024,
+        "parallel_total_width_budget_bits": 12288,
+        "complete_layer_repetitions_counted": 1
+      },
+      "block_count": 40,
+      "largest_block_sites": 104,
+      "largest_temporary_link_count": 104,
+      "persistent_native_system_bits": 57331,
+      "persistent_native_plus_one_workspace_bits": 58355,
+      "streaming": {
+        "register_bits": {
+          "matter": 4096,
+          "incoming_flux": 13,
+          "temporary_links": 1352,
+          "shared_carry_or_native_work": 1024
+        },
+        "total_bits": 6485,
+        "charge_controlled_unit_updates_per_layer": 16302,
+        "copied_bits_per_layer": 106470,
+        "register_additions_per_layer": 0,
+        "elementary_gates_per_layer": {
+          "toffoli": 391248,
+          "cnot": 318396,
+          "x": 16300
+        },
+        "elementary_gates_all_repetitions": {
+          "toffoli": 391248,
+          "cnot": 318396,
+          "x": 16300
+        }
+      },
+      "conserved_cache": {
+        "fits_declared_width_budget": true,
+        "active_blocks": 2,
+        "batches": 20,
+        "matter_bits": 4096,
+        "retained_conserved_cache_bits": 2054,
+        "shared_peak_workspace_bits": 4752,
+        "peak_total_bits": 10902,
+        "cache_build_carry_bits": 480,
+        "local_batch_workspace_bits": 4752,
+        "charge_controlled_unit_updates_per_layer": 16382,
+        "copied_bits_per_layer": 109512,
+        "register_additions_per_layer": 156,
+        "tree_height": 6,
+        "elementary_gates_per_layer": {
+          "toffoli": 417504,
+          "cnot": 336674,
+          "x": 16380
+        },
+        "elementary_gates_all_repetitions": {
+          "toffoli": 417504,
+          "cnot": 336674,
+          "x": 16380
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sites": 65536,
+        "nominal_block_sites": 136,
+        "left_flux": 0,
+        "bits_per_flux_or_total": 17,
+        "native_simulator_workspace_bits_per_active_block": 1024,
+        "parallel_total_width_budget_bits": 196608,
+        "complete_layer_repetitions_counted": 1
+      },
+      "block_count": 482,
+      "largest_block_sites": 136,
+      "largest_temporary_link_count": 136,
+      "persistent_native_system_bits": 1179631,
+      "persistent_native_plus_one_workspace_bits": 1180655,
+      "streaming": {
+        "register_bits": {
+          "matter": 65536,
+          "incoming_flux": 17,
+          "temporary_links": 2312,
+          "shared_carry_or_native_work": 1024
+        },
+        "total_bits": 68889,
+        "charge_controlled_unit_updates_per_layer": 261902,
+        "copied_bits_per_layer": 2228190,
+        "register_additions_per_layer": 0,
+        "elementary_gates_per_layer": {
+          "toffoli": 8380864,
+          "cnot": 6680524,
+          "x": 261900
+        },
+        "elementary_gates_all_repetitions": {
+          "toffoli": 8380864,
+          "cnot": 6680524,
+          "x": 261900
+        }
+      },
+      "conserved_cache": {
+        "fits_declared_width_budget": true,
+        "active_blocks": 29,
+        "batches": 17,
+        "matter_bits": 65536,
+        "retained_conserved_cache_bits": 32742,
+        "shared_peak_workspace_bits": 96744,
+        "peak_total_bits": 195022,
+        "cache_build_carry_bits": 7712,
+        "local_batch_workspace_bits": 96744,
+        "charge_controlled_unit_updates_per_layer": 262142,
+        "copied_bits_per_layer": 2277252,
+        "register_additions_per_layer": 1924,
+        "tree_height": 9,
+        "elementary_gates_per_layer": {
+          "toffoli": 8911872,
+          "cnot": 7028038,
+          "x": 262140
+        },
+        "elementary_gates_all_repetitions": {
+          "toffoli": 8911872,
+          "cnot": 7028038,
+          "x": 262140
+        }
+      }
+    }
+  ],
+  "dependencies": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0"
+  }
+}

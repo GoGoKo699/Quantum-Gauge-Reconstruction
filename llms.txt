@@ -1,0 +1,20 @@
+# Quantum Gauge Reconstruction
+
+> Coherent temporary reconstruction of Schwinger-model gauge fields around native local simulation factors, with explicit width, arithmetic and scalar-output costs.
+
+## Scientific entry points
+
+- [Overview](README.md): question, supported resource result, scope and navigation.
+- [Theorem](science/streaming_gauss_theorem.md): authoritative model, boundary convention, reconstruction identity, coherent-error lemmas and resource theorem.
+- [Native block construction](science/coherent_native_blocks.md): actual block encodings, diagonal phases, compressed Dyson workspace and precision assumptions.
+- [Finite comparison](science/finite_resource_comparison.md): same-factor width savings and explicit reversible-arithmetic overhead.
+- [End-to-end estimation](science/estimation.md): specified product input, normalized excitation density, readout, exact inverse/reflection contract and output error.
+- [Interpretation](science/interpretation.md): quantum baselines, classical alternatives, continuum and architecture limits.
+- [Benchmarks](science/benchmarks.md): finite exact checks, matched classical quench and reconstruction census.
+- [Verification](verification/README.md): commands, outputs and limits of the numerical evidence.
+- [Prior work](references/RELATED_WORK.md): primary-source locations and comparison boundaries.
+- [Bibliography](references/references.bib): structured citation metadata.
+
+## Claim boundaries
+
+The proved result is a compiler resource bound. It is not a demonstrated classical crossover, a universal low-width lower bound, a complete finite fault-tolerant resource forecast, or a higher-dimensional gauge-reduction theorem. The benchmark's short-time density is classically tractable. For exact details, prefer the theorem and implementation notes over a summary or historical numerical artifact.
