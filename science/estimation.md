@@ -32,7 +32,7 @@ k=\lceil\log_2(N+1)\rceil,\qquad
 q=\lceil\log_2 N\rceil,\qquad
 M=2^q.
 ```
-Compute $`c(z)`$ into a $`k`$-bit counter using one controlled increment per site. Prepare a $`q`$-bit threshold register with Hadamard gates, giving a uniform integer $`r\in\{0,\ldots,M-1\}`$. Reversibly flip a flag when $`r<c(z)`$, then uncompute the count and comparator scratch.
+Compute $`c(z)`$ into a $`k`$-bit counter using one controlled increment per site. Prepare a $`q`$-bit threshold register with Hadamard gates, giving a uniform integer $`r\in\{0,\ldots,M-1\}`$. Reversibly flip a flag when $`r\lt c(z)`$, then uncompute the count and comparator scratch.
 
 Conditional on $`z`$, the acceptance probability is exactly $`c(z)/M`$. Therefore, for an arbitrary superposition of matter strings,
 
@@ -41,7 +41,7 @@ p=\frac{\mathbb E[c]}{M},
 \qquad
 \nu=\frac{M}{N}p,
 \qquad
-1\le\frac{M}{N}<2.
+1\le\frac{M}{N}\lt 2.
 ```
 For powers of two the scale is exactly one. Power-of-two padding makes the construction exact for other $`N`$ as well; only a known final classical rescaling is needed.
 
@@ -71,7 +71,7 @@ Choose the simulation's clean-input state error, including decomposition, local 
 
 The bias of one fixed compiled $`A`$ is bounded separately from the estimation error. Its compilation tolerance need not be reduced to $`\epsilon^2`$ merely because amplitude estimation invokes it many times. The exact circuit inverse is essential to this statement. Stochastic physical gate failures belong to a separate fault-tolerance error budget for the complete computation.
 
-The reflection about the full initial state must include the matter, threshold and simulation-workspace registers. A linear-size multi-controlled reflection with one ancillary qubit is available from [Nie, Zi and Sun, Theorem 1](https://arxiv.org/abs/2402.05053). Reserve this one clean ancillary qubit outside A; potentially leaked simulation scratch cannot supply the clean-ancilla contract. Their selected construction uses bounded-size Toffoli primitives and preserves low workspace. A reflection implementation that allocates one new ancilla per system qubit would not establish the stated $`N+\operatorname{polylog}`$ width.
+The reflection about the full initial state must include the matter, threshold and simulation-workspace registers. A linear-size multi-controlled reflection with one ancillary qubit is available from [Nie, Zi and Sun, Theorem 1](https://arxiv.org/abs/2402.05053). Reserve this one clean ancillary qubit outside A; potentially leaked simulation scratch cannot supply the clean-ancilla contract. Their selected construction uses bounded-size Toffoli primitives and preserves low workspace. A reflection implementation that allocates one new ancilla per system qubit would not establish the stated $`N+\mathrm{polylog}`$ width.
 
 ## Complete cost
 
@@ -87,9 +87,9 @@ logical gates. Preparation, counting, comparison and the reflection fit within t
 G_{\mathrm{total}}
 =\widetilde O\!\left(\frac{N(1+|w|t)}{\epsilon}\right),
 \qquad
-Q_{\mathrm{total}}=N+\operatorname{polylog}.
+Q_{\mathrm{total}}=N+\mathrm{polylog}.
 ```
-Confidence logarithms are included in the soft-O notation. The parallel construction uses $`O(N)+\operatorname{polylog}`$ qubits and has total logical depth $`\widetilde O((1+|w|t)/\epsilon)`$ in the stated all-to-all circuit model. A parallel count and reflection may use linear workspace, which is allowed in that variant.
+Confidence logarithms are included in the soft-O notation. The parallel construction uses $`O(N)+\mathrm{polylog}`$ qubits and has total logical depth $`\widetilde O((1+|w|t)/\epsilon)`$ in the stated all-to-all circuit model. A parallel count and reflection may use linear workspace, which is allowed in that variant.
 
 For the explicitly constructed global interaction-picture comparator, the same output contract gives
 
@@ -103,7 +103,7 @@ The factor-$`N`$ comparison in the evolution-dominated regime refers to that con
 
 The classical input is the finite list of lattice parameters and the size, time and accuracy specification. It is not an amplitude table or a supplied quantum data structure. The block schedule, circuit addresses and quadratic phase coefficients are explicit functions of these inputs. The compressed Dyson circuit uses only polynomially many precision bits and order coefficients; it does not enumerate all possible clock values.
 
-Let $`G_0`$ be the number of gates in one compiled A and let P be the theorem's precision parameter. Generating the schedule and gate descriptions requires at most $`G_0\operatorname{poly}(P)`$ classical work when coefficient evaluation and finite-set gate synthesis use constructive polynomial-time precision algorithms. Standard Solovay–Kitaev compilation suffices for this conservative claim; see [Dawson and Nielsen's constructive algorithm](https://arxiv.org/abs/quant-ph/0505030). An efficient specialized rotation compiler can improve the constants. The compiled program is reused for the repeated A and inverse calls in amplitude estimation. Storing the classical program can take $`O(G_0\operatorname{poly}(P))`$ bits; the theorem's quantum-width count does not count this ordinary classical control memory as qubits.
+Let $`G_0`$ be the number of gates in one compiled A and let P be the theorem's precision parameter. Generating the schedule and gate descriptions requires at most $`G_0\mathrm{poly}(P)`$ classical work when coefficient evaluation and finite-set gate synthesis use constructive polynomial-time precision algorithms. Standard Solovay–Kitaev compilation suffices for this conservative claim; see [Dawson and Nielsen's constructive algorithm](https://arxiv.org/abs/quant-ph/0505030). An efficient specialized rotation compiler can improve the constants. The compiled program is reused for the repeated A and inverse calls in amplitude estimation. Storing the classical program can take $`O(G_0\mathrm{poly}(P))`$ bits; the theorem's quantum-width count does not count this ordinary classical control memory as qubits.
 
 Consequently, charged preprocessing changes only the suppressed precision factors in the stated total work bound. Reading the phase-estimation result, confidence aggregation and rescaling by $`M/N`$ require polynomial-logarithmic classical processing for the selected scalar estimator. Direct sampling instead processes N measured occupation bits per repetition, as counted below.
 

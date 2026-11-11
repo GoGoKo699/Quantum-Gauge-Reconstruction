@@ -105,3 +105,7 @@ The exact block-product checks address a different question: whether reconstruct
 The arithmetic census uses an explicit controlled increment with $`2(B-1)`$ Toffoli gates, $`B`$ CNOT gates and $`B-1`$ clean carries. It includes construction and uncomputation, and records cases where the cache cannot fit its declared budget. These are exact counts for the stated arithmetic and layout. They exclude native simulation gates, an accuracy-certified schedule, fault-tolerant synthesis, routing, physical qubits, magic-state production and wall-clock time. Preparation, output estimation and reflection costs must be added for a complete algorithm comparison; see [the finite comparison](../science/finite_resource_comparison.md) and [estimation](../science/estimation.md).
 
 The mathematical compiler argument, finite Boolean checks, floating-point tests and classical task benchmark provide different kinds of evidence. None should be presented as proving the claims outside its stated scope.
+
+## Hosted mathematical presentation
+
+The separate [hosted-mathematics check](hosted/README.md) compares the actual commit-pinned GitHub pages with their source expressions at wide and narrow viewports. It covers every tracked Markdown page, including formula-bearing table cells, and saves screenshots for visual review. This presentation check does not assess the scientific truth of an equation or replace the numerical suite above.

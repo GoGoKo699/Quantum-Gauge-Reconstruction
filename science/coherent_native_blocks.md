@@ -12,41 +12,45 @@ H_I=A_I+B_I,
 
 where
 
+**Equation (1).**
+
 ```math
 A_I=m\sum_{j\in I}(-1)^j n_j+
- J\sum_{j\in\operatorname{links}(I)}(E_j+\theta I)^2
- \tag{1}
+ J\sum_{j\in\mathrm{links}(I)}(E_j+\theta I)^2
 ```
 
 contains all on-site terms, including the outgoing boundary electric term, and
+
+**Equation (2).**
 
 ```math
 B_I=w\sum_{j=a}^{c-1}T_j,
  \quad
  T_j=\sigma_j^+U_j\sigma_{j+1}^-+
        \sigma_j^-U_j^\dagger\sigma_{j+1}^+.
- \tag{2}
 ```
 
 The field range and hard-truncated shifts are those of the main theorem. Bounds valid on the **entire native register space**, not only the physical subspace, are
+
+**Equation (3).**
 
 ```math
 \|A_I\|\le
  s\left[|m|+|J|\bigl(2^{b-1}+|\theta|\bigr)^2\right]
  =:\alpha_A,
  \qquad \|T_j\|\le1.
- \tag{3}
 ```
 
 Let $`|\tau|\le |w|^{-1}`$, as in a rescaled HHKL chunk, and let $`\eta`$ be the desired block clean-input isometry error. The diagonal cases $`w=0`$, $`s=1`$, or no internal hopping are implemented directly from (1); below assume that $`s\ge2`$ and $`w\ne0`$.
 
 The circuit must satisfy, for every native input and every reference register,
 
+**Equation (4).**
+
 ```math
 \left\|V_I\bigl(|0\rangle_W|\psi\rangle\bigr)
        -|0\rangle_W e^{-i\tau H_I}|\psi\rangle\right\|
  \le\eta.
- \tag{4}
 ```
 
 It need not return its work register exactly to zero, and it need not approximate $`I_W\otimes e^{-i\tau H_I}`$ on arbitrary nonzero work inputs. The main theorem's hybrid proof uses precisely (4), with no intermediate reset.
@@ -57,19 +61,21 @@ It need not return its work register exactly to zero, and it need not approximat
 
 For a fixed link field $`e`$, the bond operator exchanges
 
+**Equation (5).**
+
 ```math
 |0,1,e\rangle\longleftrightarrow|1,0,e+1\rangle
- \tag{5}
 ```
 
 whenever both fields are in range. All other basis states are annihilated. Thus $`T_j^2=P_j`$, where $`P_j`$ is the projector onto the active endpoints of these disjoint pairs. Explicitly, the active predicate is
 
+**Equation (6).**
+
 ```math
 p_j(x,y,e)=
- [x=0,y=1,e<e_{\max}]
+ [x=0,y=1,e\lt e_{\max}]
  \ \lor\ 
  [x=1,y=0,e>e_{\min}].
- \tag{6}
 ```
 
 Let $`F_j`$ be the reversible permutation that performs the exchange (5) on active states and fixes inactive states. It is implementable in $`O(b)`$ elementary reversible gates and $`O(b)`$ scratch:
@@ -83,39 +89,43 @@ Controlled increments, decrements, and comparison with a known $`b`$-bit endpoin
 
 Introduce one signal qubit $`a`$. The operator
 
+**Equation (7).**
+
 ```math
 V_j=P_jF_j\otimes I_a+(I-P_j)\otimes X_a
- \tag{7}
 ```
 
 is a Hermitian unitary with
 
+**Equation (8).**
+
 ```math
 (\langle0|_a\otimes I)V_j(|0\rangle_a\otimes I)=T_j.
- \tag{8}
 ```
 
 Implement it by applying the matching on active states and flipping the signal qubit on inactive states while the predicate is available. Because $`F_j`$ commutes with $`P_j`$, the same cleanup is valid. Equation (7) specifies a unitary on every native basis state, including endpoint and gauge-violating configurations.
 
 ### 2.2 Uniform padded LCU
 
-Let $`Q=2^{\lceil\log_2(s-1)\rceil}`$, so $`s-1\le Q<2(s-1)`$, with the natural equality case when $`s-1`$ is a power of two. Prepare a uniform $`\log_2Q`$-bit term index with Hadamards. For the $`s-1`$ real terms, select (7). For padded terms, select $`X_a`$, whose zero-signal top block is zero. Unprepare the index.
+Let $`Q=2^{\lceil\log_2(s-1)\rceil}`$, so $`s-1\le Q\lt 2(s-1)`$, with the natural equality case when $`s-1`$ is a power of two. Prepare a uniform $`\log_2Q`$-bit term index with Hadamards. For the $`s-1`$ real terms, select (7). For padded terms, select $`X_a`$, whose zero-signal top block is zero. Unprepare the index.
 
 This gives an exact block encoding of $`B_I/\alpha_B`$ with
 
+**Equation (9).**
+
 ```math
 \alpha_B=Q|w|\le2s|w|.
- \tag{9}
 ```
 
 The sign of $`w`$ is a known overall sign in the block encoding and is retained in controlled uses. It can equivalently be absorbed by a known alternating matter phase convention. Its implementation has constant gate overhead.
 
 A direct SELECT implementation loops over the $`s-1`$ hard-coded neighboring bonds, computes equality of the index with the bond label, applies the corresponding controlled local circuit, and erases the equality flag. This uses
 
+**Equation (10).**
+
 ```math
 G_{B}=O\bigl(s(b+\log s)\bigr),\qquad
  a_B=O(b+\log s)
- \tag{10}
 ```
 
 gates and auxiliary qubits. Matter and link wires have ordinary compiled addresses; no coherent random-access memory is assumed. A term register selects a short circuit on an interval of length $`s`$, rather than querying a database of the whole chain.
@@ -125,36 +135,39 @@ gates and auxiliary qubits. Matter and link wires have ordinary compiled address
 Let $`x_0,\ldots,x_{b-1}`$ be a link's two's-complement bits, and put
 
 ```math
-\lambda_u=2^u\quad(u<b-1),\qquad
+\lambda_u=2^u\quad(u\lt b-1),\qquad
  \lambda_{b-1}=-2^{b-1},\qquad
  E=\sum_{u=0}^{b-1}\lambda_u x_u.
 ```
 
 The exact quadratic expansion is
 
+**Equation (11).**
+
 ```math
 (E+\theta)^2
  =\theta^2+
    \sum_u(\lambda_u^2+2\theta\lambda_u)x_u
-   +2\sum_{u<v}\lambda_u\lambda_v x_ux_v.
- \tag{11}
+   +2\sum_{u\lt v}\lambda_u\lambda_v x_ux_v.
 ```
 
 Consequently $`e^{-i\xi A_I}`$ is a product of $`O(sb^2)`$ known one- or two-bit phase gates, together with the known global scalar phase from the $`L_I\theta^2`$ term. In a controlled use that scalar becomes a relative phase and must be implemented. For an uncontrolled factor with an operator-norm phase convention, it can be implemented by a known phase on a reserved clean qubit; its constant workspace and gates are included in the bounds.
 
 Let $`M`$ be a power of two, and let the time-index register encode $`v=\sum_{r=0}^{d-1}2^rv_r`$, with $`d=\log_2M`$. The coherent diagonal oracle
 
+**Equation (12).**
+
 ```math
 D_{h,M}=\sum_{v=0}^{M-1}|v\rangle\langle v|
         \otimes e^{-i A_I h v/M}
- \tag{12}
 ```
 
 is constructed by multiplying each phase coefficient in (11) by $`h2^r/M`$ and controlling it on bit $`v_r`$. It uses
 
+**Equation (13).**
+
 ```math
 G_D=O(sb^2d)
- \tag{13}
 ```
 
 bounded-arity phase gates and constant additional workspace. A quadratic field term controlled on a clock bit acts on at most three qubits. The mass term and scalar $`\theta^2`$ phase need at most two and one clock-controlled qubits, respectively. Each such gate has a constant-size decomposition into CNOTs and one-qubit rotations; adding a single outer control also changes the cost by only a constant factor.
@@ -167,51 +180,57 @@ In the streaming compiler, the native field registers already contain the incomi
 
 Using (8)–(13), the Hamiltonian oracle required by Low–Wiebe is
 
+**Equation (14).**
+
 ```math
-\operatorname{HAM\!-!T}
+\mathrm{HAM\!-\!T}
    =D_{h,M}^\dagger O_B D_{h,M},
- \tag{14}
 ```
 
 whose zero-signal/index top block is
 
+**Equation (15).**
+
 ```math
 \sum_{v=0}^{M-1}|v\rangle\langle v|
  \otimes \frac{e^{i A_I h v/M}B_Ie^{-i A_I h v/M}}{\alpha_B}.
- \tag{15}
 ```
 
 Its circuit cost is
 
+**Equation (16).**
+
 ```math
 G_{\rm HAM-T}=O\bigl(sb^2d+s(b+\log s)\bigr).
- \tag{16}
 ```
 
 The time-dependent interaction Hamiltonian has
+
+**Equation (17).**
 
 ```math
 \max_u\|H_I^{\rm int}(u)\|\le\alpha_B,
  \qquad
  \left\|\frac{dH_I^{\rm int}(u)}{du}\right\|
    \le2\alpha_A\alpha_B.
- \tag{17}
 ```
 
 For a block duration $`|\tau|`$, choose
 
+**Equation (18).**
+
 ```math
 r_I=\max\{1,\lceil2\alpha_B|\tau|\rceil\},
  \qquad h=|\tau|/r_I.
- \tag{18}
 ```
 
 Then $`h\alpha_B\le1/2`$, and because $`|\tau|\le|w|^{-1}`$, $`r_I=O(s)`$. Each exact full-Hamiltonian segment is a short interaction-picture propagator followed by $`e^{-ihA_I}`$. Negative-time blocks use the signs reversed, or the inverse of a positive-time compiled circuit. If $`\|VJ_0-J_0U\|\le\eta`$ for a full system domain, then
 
+**Equation (19).**
+
 ```math
 \|V^\dagger J_0-J_0U^\dagger\|
  =\|J_0-VJ_0U^\dagger\|\le\eta,
- \tag{19}
 ```
 
 so taking the inverse preserves the same clean-input guarantee.
@@ -224,19 +243,21 @@ K=O\!\left(\frac{\log(1/\rho)}{\log\log(1/\rho)}\right)
 
 and a discretization satisfying, for an absolute constant $`C`$,
 
+**Equation (20).**
+
 ```math
 M\ge C\max\left\{
  K^2,\frac{h^2}{\rho}
        \left(2\alpha_A\alpha_B+\alpha_B^2\right)
  \right\}.
- \tag{20}
 ```
 
 Round $`M`$ upward to a power of two. Since $`h\alpha_B\le1/2`$, a choice with
 
+**Equation (21).**
+
 ```math
 M=O\!\left(K^2+\frac{1+h\alpha_A}{\rho}\right)
- \tag{21}
 ```
 
 is sufficient. All such quantities are determined classically from explicit couplings, duration, and the requested error; they are not problem-dependent oracles.
@@ -247,19 +268,21 @@ is sufficient. All such quantities are determined classically from explicit coup
 
 Low–Wiebe Theorem 3 constructs a short-time truncated-Dyson operation with projected operator error $`\rho`$. The proof of their Corollary 4, Eq. (11), explicitly identifies its underlying unitary circuit $`V_j`$ and the projected operation
 
+**Equation (22).**
+
 ```math
 W_j=(\langle0|\otimes I)V_j(|0\rangle\otimes I).
- \tag{22}
 ```
 
 Appendix B provides the controlled-product construction and robust oblivious amplitude amplification. The **compressed implementation in that theorem**, including the compression gadget of Lemma 13 and the OAA step of Lemma 14, is the one selected here. Its auxiliary-width bound is
+
+**Equation (23).**
 
 ```math
 O\!\left(a_B+
   \log\left[\frac{h^2}{\rho}
    \left(\langle\|\dot H\|\rangle+\max_u\|H(u)\|^2\right)\right]
  \right),
- \tag{23}
 ```
 
 with harmless constants/lower bounds inside the logarithm. In particular, this does **not** use $`K`$ independently stored time registers of $`\log M`$ bits. Selecting an uncompressed Dyson implementation would change the width and depth polynomials and must not be substituted while retaining (23).
@@ -276,16 +299,18 @@ For $`J_0|\psi\rangle=|0\rangle|\psi\rangle`$, if
 
 then the main theorem's Lemma 3 gives
 
+**Equation (24).**
+
 ```math
 \|V_jJ_0-J_0U_j\|\le\sqrt{2\rho}.
- \tag{24}
 ```
 
 Choose
 
+**Equation (25).**
+
 ```math
 \rho=\eta^2/(8r_I^2).
- \tag{25}
 ```
 
 Each short segment then has clean-input error at most $`\eta/(2r_I)`$. The ideal segment prefix has zero work, so the coherent hybrid argument composes all $`r_I`$ segments using the **same** work register and gives block error at most $`\eta/2`$. Exact on-site exponential factors preserve the norm and keep ideal work zero. Budget the other $`\eta/2`$ for ordinary gate synthesis of the full fixed circuit.
@@ -305,23 +330,26 @@ s=O(P),\quad b=O(P),\quad
 
 Equations (3), (21), and (25), together with $`h\le t`$, give
 
+**Equation (26).**
+
 ```math
 d=\log_2M=O(P),\qquad K=O(P),\qquad a_B=O(P).
- \tag{26}
 ```
 
 Theorem 3 makes $`O(K)`$ queries to (14) per short segment, so there are $`O(sP)`$ such queries per block. Equation (16) costs at most $`O(sP^3)`$ primitive gates per query. The remaining theorem-provided gates use at most $`O(r_I(a_B+d)K)=O(sP^2)`$ primitives, and the $`r_I`$ outer diagonal exponentials cost at most $`O(s^2b^2)`$. Therefore a conservative total is
 
+**Equation (27).**
+
 ```math
 G_I=O(s^2P^4).
- \tag{27}
 ```
 
 The native-system width is $`s+L_Ib`$. The selected compressed Dyson circuit and the explicitly opened oracle use only
 
+**Equation (28).**
+
 ```math
 a_I=O(a_B+d+\log K)=O(P)
- \tag{28}
 ```
 
 additional qubits. In a streaming implementation, the complete local extra width, including links and prefix, is therefore $`O(sb+P)`$, as used in the main theorem.
@@ -336,6 +364,8 @@ The algorithm may take exact dyadic $`w,m,J,\theta,t`$ as its problem definition
 
 On the physical domain, all fields satisfy $`|E_j|\le F=|e_{\rm L}|+N`$. Let $`\Delta w=\widetilde w-w`$, and similarly for the other parameters. A direct triangle bound gives
 
+**Equation (29).**
+
 ```math
 \begin{split}
  \|H_{\rm red}-\widetilde H_{\rm red}\|
@@ -346,25 +376,26 @@ On the physical domain, all fields satisfy $`|E_j|\le F=|e_{\rm L}|+N`$. Let $`\
     (2F+|\theta|+|\widetilde\theta|)
  \right].
 \end{split}
- \tag{29}
 ```
 
 For time error as well,
+
+**Equation (30).**
 
 ```math
 \|e^{-itH_{\rm red}}-e^{-i\widetilde t\widetilde H_{\rm red}}\|
  \le t\|H_{\rm red}-\widetilde H_{\rm red}\|
     +|t-\widetilde t|\,\|\widetilde H_{\rm red}\|,
- \tag{30}
 ```
 
 where a valid norm bound for the second term is
+
+**Equation (31).**
 
 ```math
 \|\widetilde H_{\rm red}\|
  \le (N-1)|\widetilde w|+N|\widetilde m|
  +(N-1)|\widetilde J|(F+|\widetilde\theta|)^2.
- \tag{31}
 ```
 
 These are Duhamel/unitary perturbation bounds. They show explicitly how many coefficient fractional bits suffice. For bounded or polynomially scaling parameters, precision grows logarithmically in $`Nt/\delta`$ and the field magnitude. If input magnitudes or description lengths scale faster, the $`\beta`$ and logarithmic magnitude terms in $`P`$ charge them. The integer incoming flux and reversible charge arithmetic are exact.

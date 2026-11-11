@@ -78,6 +78,10 @@ python verification/run_all.py --full
 
 The default command without `--full` uses a smaller quench case while retaining the exact compiler, arithmetic and census checks. The [verification guide](verification/README.md) describes dependencies, individual scripts and the meaning of each check.
 
+## Learning route
+
+The educational anchor is **Andrew M. Childs, [Lecture Notes on Quantum Algorithms](https://www.cs.umd.edu/~amchilds/qa/qa.pdf), 17 April 2025**. The [source bridge](learning/anchor_bridge.md) translates its circuit, error and simulation foundations into this project's gauge-constrained setting, including a four-site worked example. The [30-milestone map](learning/milestones.md) connects those foundations to the compiler, its complete scalar-output contract and the classical comparison. [Start the learning route](learning/README.md).
+
 ## Scope and open work
 
 The result is for a one-dimensional open chain with known incoming flux. Fixing outgoing flux as well selects a total-charge sector. The theorem includes numerical input precision and coherent error; it does not assume a supplied interacting ground state or QRAM.

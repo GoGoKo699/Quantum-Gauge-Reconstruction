@@ -7,11 +7,11 @@ This note proves a space-efficient implementation of the existing locality-decom
 The principal result is a resource tradeoff. Under the explicit input-precision assumptions below, the serial implementation uses
 
 ```math
-N+\operatorname{polylog}\text{ total qubits},\qquad
+N+\mathrm{polylog}\text{ total qubits},\qquad
   \widetilde O\bigl(N(1+|w|t)\bigr)\text{ gates}.
 ```
 
-A parallel implementation uses $`O(N)+\operatorname{polylog}`$ qubits and $`\widetilde O(1+|w|t)`$ logical depth on an all-to-all architecture. The existing native-gauge implementation already achieves this gate order; the improvement is avoiding permanent storage of all $`N-1`$ gauge links. Relative to the natural matter-only global interaction-picture composition, whose straightforward gate count is $`\widetilde O(N^2|w|t)`$, spatially local reconstruction removes one extensive factor. Neither statement establishes a quantum-versus-classical lower bound or a finite-instance hardware crossover.
+A parallel implementation uses $`O(N)+\mathrm{polylog}`$ qubits and $`\widetilde O(1+|w|t)`$ logical depth on an all-to-all architecture. The existing native-gauge implementation already achieves this gate order; the improvement is avoiding permanent storage of all $`N-1`$ gauge links. Relative to the natural matter-only global interaction-picture composition, whose straightforward gate count is $`\widetilde O(N^2|w|t)`$, spatially local reconstruction removes one extensive factor. Neither statement establishes a quantum-versus-classical lower bound or a finite-instance hardware crossover.
 
 All elementary arithmetic below is a reversible circuit. No measurement, postselection, reset, or discarded simulator workspace occurs inside the simulation unitary.
 
@@ -25,10 +25,11 @@ s_j=j\bmod 2,\qquad q_j=n_j-s_j I.
 
 Fix the incoming integer flux $`e_{\rm L}\in\mathbb Z`$. A background fractional flux is included in the real parameter $`\theta`$, rather than in the integer register. For a matter basis string $`z`$, define
 
+**Equation (1).**
+
 ```math
 E_j(z)=e_{\rm L}+\sum_{k=0}^{j}(z_k-s_k),
  \qquad 0\le j\le N-2.
- \tag{1}
 ```
 
 There are $`N-1`$ dynamical links. The exterior right flux would be
@@ -41,20 +42,24 @@ Thus the full $`2^N`$-dimensional matter space fixes the incoming boundary only 
 
 Put $`F=|e_{\rm L}|+N`$, and choose
 
+**Equation (2).**
+
 ```math
 b=1+\left\lceil\log_2(F+2)\right\rceil.
- \tag{2}
 ```
 
 A link register uses two's-complement integers in
 $`\mathcal R_b=\{-2^{b-1},\ldots,2^{b-1}-1\}`$. This range contains every value in (1), with a margin at both endpoints. Let
 
+**Equation (3).**
+
 ```math
 U_j=\sum_{e=-2^{b-1}}^{2^{b-1}-2}|e+1\rangle\langle e|_j
- \tag{3}
 ```
 
 be the hard-truncated raising operator. It is a contraction, not a cyclic wraparound shift. We use the native Hamiltonian
+
+**Equation (4).**
 
 ```math
 \begin{split}
@@ -64,25 +69,26 @@ be the hard-truncated raising operator. It is a contraction, not a cyclic wrapar
  &+m\sum_{j=0}^{N-1}(-1)^j n_j
    +J\sum_{j=0}^{N-2}(E_j+\theta I)^2,
  \end{split}
- \tag{4}
 ```
 
 where $`w,m,J,\theta`$ are real. A conventional staggered-fermion phase or additive mass constant can be incorporated explicitly; it does not alter the construction. Additive constants must nevertheless be retained when a controlled-unitary or operator-norm contract is claimed.
 
 Define the isometry
 
+**Equation (5).**
+
 ```math
 \mathcal E|z\rangle
    =|z\rangle\bigotimes_{j=0}^{N-2}|E_j(z)\rangle.
- \tag{5}
 ```
 
-Every hopping term in (4) maps a valid basis configuration to another valid basis configuration, or annihilates it. It changes the charge at its left endpoint by the same signed unit as its link field and changes the adjacent charge by the opposite unit. Diagonal terms preserve every basis configuration. Consequently $`\operatorname{im}\mathcal E`$ is invariant under $`H`$,
+Every hopping term in (4) maps a valid basis configuration to another valid basis configuration, or annihilates it. It changes the charge at its left endpoint by the same signed unit as its link field and changes the adjacent charge by the opposite unit. Diagonal terms preserve every basis configuration. Consequently $`\mathrm{im}\mathcal E`$ is invariant under $`H`$,
+
+**Equation (6).**
 
 ```math
 H\mathcal E=\mathcal E H_{\rm red},\qquad
  e^{-itH}\mathcal E=\mathcal E e^{-itH_{\rm red}},
- \tag{6}
 ```
 
 where $`H_{\rm red}=\mathcal E^\dagger H\mathcal E`$. No physically reachable transition touches a truncation endpoint, so (6) agrees exactly with the untruncated open-chain dynamics on this domain. There is no electric-tail approximation in this theorem.
@@ -99,7 +105,7 @@ For a cell interval $`I=[a,c]`$, define $`H_I`$ to be the sum of **whole terms o
 - electric terms on links $`a,\ldots,\min(c,N-2)`$;
 - hopping terms on bonds $`a,\ldots,c-1`$.
 
-In particular, when $`c<N-1`$, the outgoing link $`c`$ is included for its electric energy even though there is no hopping across the right cut. No hopping crossing either cut is included. This assignment is exactly the restriction convention required by the HHKL decomposition; it avoids changing the Hamiltonian at the interface.
+In particular, when $`c\lt N-1`$, the outgoing link $`c`$ is included for its electric energy even though there is no hopping across the right cut. No hopping crossing either cut is included. This assignment is exactly the restriction convention required by the HHKL decomposition; it avoids changing the Hamiltonian at the interface.
 
 Let
 
@@ -109,9 +115,10 @@ L_I=\max\{0,\min(c,N-2)-a+1\}
 
 be the number of represented local links. For every block,
 
+**Equation (7).**
+
 ```math
 [H_I,Q_I]=0,\qquad Q_I=\sum_{j=a}^{c}q_j.
- \tag{7}
 ```
 
 The incoming flux $`E_{a-1}`$ is not acted on. The outgoing flux, when represented, is also unchanged: only internal hopping is allowed. Each block propagator preserves the full native physical subspace, even though adjacent blocks in the schedule may overlap.
@@ -120,25 +127,28 @@ The incoming flux $`E_{a-1}`$ is not acted on. The outgoing flux, when represent
 
 Let a $`b`$-bit register $`P`$ contain the current incoming flux
 
+**Equation (8).**
+
 ```math
-P_a(z)=e_{\rm L}+\sum_{k<a}(z_k-s_k).
- \tag{8}
+P_a(z)=e_{\rm L}+\sum_{k\lt a}(z_k-s_k).
 ```
 
 Let $`D_I`$ be the reversible circuit that, into $`L_I`$ initially zero link registers, computes
 
+**Equation (9).**
+
 ```math
 F_j=P+\sum_{k=a}^{j}(z_k-s_k),
  \qquad j=a,\ldots,\min(c,N-2),
- \tag{9}
 ```
 
 while preserving the matter and $`P`$ registers. Let
 $`U_I(\tau)=e^{-i\tau H_I}`$, with either sign of $`\tau`$. Then
 
+**Equation (10).**
+
 ```math
 D_I^\dagger U_I(\tau)D_I
- \tag{10}
 ```
 
 on the subspace (8) realizes the compressed native block action and returns every reconstructed link and every arithmetic carry to zero. It preserves the register $`P`$.
@@ -160,20 +170,22 @@ The arithmetic can use modular two's-complement additions on the entire register
 
 Suppose the next block begins at site $`a`$, and $`P=P_a`$. After that exact block, $`P_a`$ is unchanged. To move to a block beginning at $`a'>a`$, apply
 
+**Equation (11).**
+
 ```math
 P\longmapsto P+\sum_{j=a}^{a'-1}(z_j-s_j).
- \tag{11}
 ```
 
-For $`a'<a`$, subtract the current charges on $`[a',a)`$. Equations (8) and (11) use the matter register **at the time of the move**. They do not rely on a record of the input configuration.
+For $`a'\lt a`$, subtract the current charges on $`[a',a)`$. Equations (8) and (11) use the matter register **at the time of the move**. They do not rely on a record of the input configuration.
 
 ### Lemma 2: arbitrary cursor schedules
 
 For any sequence of exact block propagators, possibly overlapping and with either time direction, the cursor update above maintains (8). If the block starts are $`a_1,\ldots,a_M`$, the total number of charge additions needed for initialization, movement, and final cleanup is
 
+**Equation (12).**
+
 ```math
 O\!\left(N+\sum_{k=1}^{M-1}|a_{k+1}-a_k|\right).
- \tag{12}
 ```
 
 **Proof.** A block beginning at $`a`$ changes no site strictly left of $`a`$, so it leaves (8) invariant. Adding or subtracting the current crossed charges is the algebraic difference between the two current prefixes. At completion, subtract all charges currently left of the cursor and remove the known bit string for $`e_{\rm L}`$. This returns $`P`$ to zero. The counts follow from the number of crossed sites. ∎
@@ -200,24 +212,27 @@ r=\max\{1,\lceil |w|t\rceil\}
 
 pieces of duration at most $`|w|^{-1}`$. For each piece, HHKL's one-dimensional construction supplies three layers of disjoint interval propagators, including inverse propagators. Its intervals have length $`O(\ell)`$, it has $`O(N/\ell)`$ factors when $`N\gg\ell`$, and its error is bounded by
 
+**Equation (13).**
+
 ```math
 C(N/\ell)e^{-\mu\ell}
- \tag{13}
 ```
 
 for universal rescaled-locality constants. Choose
 
+**Equation (14).**
+
 ```math
 \ell_0=\left\lceil C_0\max\left\{b,\log\frac{Nr}{\delta}\right\}\right\rceil,
  \qquad L=\min\{N,\ell_0\},
- \tag{14}
 ```
 
 with a sufficiently large constant $`C_0`$. The total factorization error is at most a prescribed fraction of $`\delta`$. If a block would fill the chain, use the whole-chain factor instead; there is then no spatial factorization error. The resulting schedule has at most $`3r`$ layers, maximum factor length $`O(L)`$, and
 
+**Equation (15).**
+
 ```math
 M=O(rN/L)
- \tag{15}
 ```
 
 factors, with the single-block convention when $`L=N`$.
@@ -240,9 +255,10 @@ A=J_0^\dagger VJ_0,\qquad \|A-U\|\le\rho,
 
 then
 
+**Equation (16).**
+
 ```math
 \|VJ_0-J_0U\|\le\sqrt{2\rho}.
- \tag{16}
 ```
 
 **Proof.** Direct expansion gives
@@ -256,9 +272,10 @@ Writing $`A=U+E`$, the right-hand side is $`-E^\dagger U-U^\dagger E`$, a positi
 
 Low and Wiebe's truncated-Dyson Theorem 3 and Appendix B provide a fixed unitary short-segment circuit whose zero-workspace top block has error $`\rho`$. Their Corollary 4 discusses projections between segments. Here no such projection is performed: retain the fixed OAA circuit and apply (16). If a native block has $`r_I`$ short segments, choose each segment's top-block error at most
 
+**Equation (17).**
+
 ```math
 \rho=\frac{\eta_I^2}{8r_I^2},
- \tag{17}
 ```
 
 and give ordinary gate synthesis a further total budget $`\eta_I/2`$. A segment then contributes at most $`\eta_I/(2r_I)`$ before synthesis. Squaring the tolerance in (17) changes only the logarithms in the published query, gate, and workspace bounds. [Low and Wiebe](https://arxiv.org/abs/1805.00675)
@@ -275,11 +292,12 @@ on that ideal input subspace. Then the total output error is at most $`\sum_j\et
 
 **Proof.** Expand
 
+**Equation (18).**
+
 ```math
 V_M\cdots V_1-W_M\cdots W_1
   =\sum_{j=1}^{M}
    V_M\cdots V_{j+1}(V_j-W_j)W_{j-1}\cdots W_1.
- \tag{18}
 ```
 
 The prefix in each summand is ideal and therefore has the required clean workspace and invariants. The actual suffix is unitary and preserves the norm of that summand. The triangle inequality proves the claim. ∎
@@ -305,15 +323,17 @@ For a factor with $`L_I`$ represented links, reconstruction consists of copying 
 
 Let $`a`$ be the maximum auxiliary width of the selected coherent native block circuit, excluding its matter and link inputs, and let $`L_{\max}`$ be the maximum represented-link count in the schedule. If factors are serialized on both implementations, their widths are
 
+**Equation (19).**
+
 ```math
 Q_{\rm native}=N+(N-1)b+a,
- \tag{19}
 ```
+
+**Equation (20).**
 
 ```math
 Q_{\rm stream}\le
  N+(L_{\max}+1)b+\max\{a,b-1\}.
- \tag{20}
 ```
 
 Equation (20) counts a prefix register, temporary links, and shared carry/simulator scratch. It does not silently treat approximate scratch as exactly clean; Lemma 4 justifies its reuse. For $`R`$ layers, multiply the arithmetic overhead table by $`R`$. The native block T-count remains an inherited quantity. If a selected exact Toffoli synthesis has T-count $`T_{\rm Toff}`$, the added T-count is bounded by $`8RN(b-1)T_{\rm Toff}`$. No absolute Schwinger T-count is claimed without compiling the native block circuit, its rotation precision, and the actual HHKL schedule.
@@ -333,9 +353,10 @@ There are $`B=O(N/L)`$ intervals/caches. For $`N\ge\ell_0`$, (14) gives $`L\ge b
 
 Let $`W`$ bound the additional workspace for one block, including reconstructed fields. Allocate $`p=\max\{1,\lfloor N/W\rfloor\}`$ such workspaces. If $`W>N`$, allocate one and count its width separately. In either case, the number of batches is
 
+**Equation (21).**
+
 ```math
 O\!\left(1+\frac{W}{L}\right).
- \tag{21}
 ```
 
 Indeed, when $`N/W\ge2`$, $`p\ge N/(2W)`$; otherwise $`B=O(N/L)=O(W/L)`$. Since the local circuit below has $`W=O(Lb+P)`$, (21) is polynomial logarithmic. The total width is $`O(N)+O(P^2)`$, including the small-instance case. The original native algorithm's fine parallelism may incur additional polynomial-logarithmic batching factors; only the stated asymptotic depth is claimed.
@@ -344,7 +365,9 @@ Indeed, when $`N/W\ge2`$, $`p\ge N/(2W)`$; otherwise $`B=O(N/L)=O(W/L)`$. Since 
 
 Assume the numerical parameters $`w,m,J,\theta,t`$ are supplied as exact dyadic rationals of total bit length at most $`\beta`$, or are rounded to that form with the parameter-error budget in the [native-block construction](coherent_native_blocks.md). They are compiled into known circuit angles; no coherent QRAM oracle or uncharged parameter table is assumed.
 
-Let $`0<\delta<1/4`$, $`t\ge0`$, $`r=\max\{1,\lceil |w|t\rceil\}`$, and define
+Let $`0\lt \delta\lt 1/4`$, $`t\ge0`$, $`r=\max\{1,\lceil |w|t\rceil\}`$, and define
+
+**Equation (22).**
 
 ```math
 \begin{split}
@@ -353,15 +376,15 @@ Let $`0<\delta<1/4`$, $`t\ge0`$, $`r=\max\{1,\lceil |w|t\rceil\}`$, and define
   \left\lceil\log_2\frac{Nr}{\delta}\right\rceil+
   \left\lceil\log_2(2+t\kappa)\right\rceil.
  \end{split}
- \tag{22}
 ```
 
 All gate bounds below count Toffoli, CNOT, and bounded-arity known-angle phase gates as constant-size primitives. Equivalently, one may count arbitrary one-qubit rotations and CNOTs after constant-size decomposition. The companion construction supplies a native block of $`s=O(L)`$ cells with
 
+**Equation (23).**
+
 ```math
 G_I=O(s^2P^4),\qquad
  a_I=O(P),
- \tag{23}
 ```
 
 in addition to its $`s`$ matter qubits and $`O(sb)`$ link qubits. These exponents are conservative circuit upper bounds, not optimized finite resource estimates.

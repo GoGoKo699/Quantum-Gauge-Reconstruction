@@ -15,6 +15,14 @@
 - [Prior work](references/RELATED_WORK.md): primary-source locations and comparison boundaries.
 - [Bibliography](references/references.bib): structured citation metadata.
 
+## Learning routes
+
+- [Learning entry](learning/README.md): selected Childs2025 anchor and the route from foundations to the project.
+- [Source bridge](learning/anchor_bridge.md): verified anchor sections, notation translation, missing gauge-theory and local-simulation steps, and a four-site example.
+- [Milestones](learning/milestones.md): exactly M01–M30, with background and narrative phases, understanding targets, dependencies and source pointers.
+
+For the scientific story, read the overview, source bridge and interpretation. For proof checking, read the theorem and native-block construction before the finite comparison and estimation. For reproduction, begin with verification and benchmarks. The shared learning route contains conceptual targets; specialist proof details remain in the scientific sources.
+
 ## Claim boundaries
 
 The proved result is a compiler resource bound. It is not a demonstrated classical crossover, a universal low-width lower bound, a complete finite fault-tolerant resource forecast, or a higher-dimensional gauge-reduction theorem. The benchmark's short-time density is classically tractable. For exact details, prefer the theorem and implementation notes over a summary or historical numerical artifact.
