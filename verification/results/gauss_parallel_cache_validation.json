@@ -1,0 +1,137 @@
+{
+  "claim_tested": "Complete block charges and their prefix/tree functions survive disjoint native block evolution and erase coherently",
+  "cases": [
+    {
+      "sites": 3,
+      "blocks": [
+        [
+          0,
+          2
+        ]
+      ],
+      "cache": "block totals, boundary prefixes, and sum tree",
+      "conserved_cache_assertions": 8,
+      "clean_cache_probability": 0.9999999999999999,
+      "dirty_cache_probability": 0.0,
+      "clean_sector_state_l2_error": 1.7626019804651474e-16
+    },
+    {
+      "sites": 4,
+      "blocks": [
+        [
+          0,
+          2
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "cache": "block totals, boundary prefixes, and sum tree",
+      "conserved_cache_assertions": 32,
+      "clean_cache_probability": 1.0000000000000002,
+      "dirty_cache_probability": 0.0,
+      "clean_sector_state_l2_error": 1.8926779167518858e-16
+    },
+    {
+      "sites": 5,
+      "blocks": [
+        [
+          0,
+          2
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "cache": "block totals, boundary prefixes, and sum tree",
+      "conserved_cache_assertions": 64,
+      "clean_cache_probability": 1.0,
+      "dirty_cache_probability": 0.0,
+      "clean_sector_state_l2_error": 2.6588846399703406e-16
+    },
+    {
+      "sites": 6,
+      "blocks": [
+        [
+          0,
+          2
+        ],
+        [
+          3,
+          5
+        ]
+      ],
+      "cache": "block totals, boundary prefixes, and sum tree",
+      "conserved_cache_assertions": 128,
+      "clean_cache_probability": 1.0,
+      "dirty_cache_probability": 0.0,
+      "clean_sector_state_l2_error": 3.0143757445383103e-16
+    },
+    {
+      "sites": 7,
+      "blocks": [
+        [
+          0,
+          2
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          6,
+          6
+        ]
+      ],
+      "cache": "block totals, boundary prefixes, and sum tree",
+      "conserved_cache_assertions": 384,
+      "clean_cache_probability": 1.0000000000000002,
+      "dirty_cache_probability": 0.0,
+      "clean_sector_state_l2_error": 3.5393343655266546e-16
+    },
+    {
+      "sites": 8,
+      "blocks": [
+        [
+          0,
+          2
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          6,
+          7
+        ]
+      ],
+      "cache": "block totals, boundary prefixes, and sum tree",
+      "conserved_cache_assertions": 768,
+      "clean_cache_probability": 0.9999999999999992,
+      "dirty_cache_probability": 0.0,
+      "clean_sector_state_l2_error": 3.6495410142452443e-16
+    }
+  ],
+  "max_l2_error": 3.6495410142452443e-16,
+  "wrong_full_prefix_cache_witness": {
+    "sites": 6,
+    "blocks": [
+      [
+        0,
+        2
+      ],
+      [
+        3,
+        5
+      ]
+    ],
+    "cache": "block totals, boundary prefixes, tree, and WRONG internal prefixes",
+    "conserved_cache_assertions": 12,
+    "clean_cache_probability": 0.9335630572379409,
+    "dirty_cache_probability": 0.06643694276205923,
+    "clean_sector_state_l2_error": 0.25775364742726575
+  },
+  "scope_limit": "Exact local block matrices; this does not validate HHKL approximation, compiled arithmetic gates, hardware routing, or a classical advantage"
+}

@@ -1,0 +1,76 @@
+{
+  "status": "pass",
+  "clean_basis_cases": 8184,
+  "widths": [
+    {
+      "width": 1,
+      "cases": 8,
+      "toffoli_per_charge_update": 0,
+      "cnot_per_charge_update": 1,
+      "clean_carries": 0
+    },
+    {
+      "width": 2,
+      "cases": 16,
+      "toffoli_per_charge_update": 2,
+      "cnot_per_charge_update": 2,
+      "clean_carries": 1
+    },
+    {
+      "width": 3,
+      "cases": 32,
+      "toffoli_per_charge_update": 4,
+      "cnot_per_charge_update": 3,
+      "clean_carries": 2
+    },
+    {
+      "width": 4,
+      "cases": 64,
+      "toffoli_per_charge_update": 6,
+      "cnot_per_charge_update": 4,
+      "clean_carries": 3
+    },
+    {
+      "width": 5,
+      "cases": 128,
+      "toffoli_per_charge_update": 8,
+      "cnot_per_charge_update": 5,
+      "clean_carries": 4
+    },
+    {
+      "width": 6,
+      "cases": 256,
+      "toffoli_per_charge_update": 10,
+      "cnot_per_charge_update": 6,
+      "clean_carries": 5
+    },
+    {
+      "width": 7,
+      "cases": 512,
+      "toffoli_per_charge_update": 12,
+      "cnot_per_charge_update": 7,
+      "clean_carries": 6
+    },
+    {
+      "width": 8,
+      "cases": 1024,
+      "toffoli_per_charge_update": 14,
+      "cnot_per_charge_update": 8,
+      "clean_carries": 7
+    },
+    {
+      "width": 9,
+      "cases": 2048,
+      "toffoli_per_charge_update": 16,
+      "cnot_per_charge_update": 9,
+      "clean_carries": 8
+    },
+    {
+      "width": 10,
+      "cases": 4096,
+      "toffoli_per_charge_update": 18,
+      "cnot_per_charge_update": 10,
+      "clean_carries": 9
+    }
+  ]
+}
